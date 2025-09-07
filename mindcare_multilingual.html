@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Support</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .rtl { direction: rtl; }
+    </style>
+</head>
+<body>
+    <h1>Mental Health Support</h1>
+    <label for="language-selector">Select Language:</label>
+    <select id="language-selector" onchange="changeLanguage()">
+        <option value="en">English</option>
+        <option value="mr">मराठी</option>
+        <option value="hi">हिन्दी</option>
+    </select>
+
+    <div id="content">
+        <div id="english-content">
+            <h2>Welcome to Mental Health Support</h2>
+            <p>Your mental well-being is important. We provide resources and support for various mental health issues.</p>
+        </div>
+        <div id="marathi-content" style="display:none;">
+            <h2>मानसिक आरोग्य समर्थनात आपले स्वागत आहे</h2>
+            <p>आपल्या मानसिक स्वास्थ्याचे महत्त्व आहे. आम्ही विविध मानसिक आरोग्य समस्यांसाठी साधने आणि समर्थन पुरवतो.</p>
+        </div>
+        <div id="hindi-content" style="display:none;" class="rtl">
+            <h2>मानसिक स्वास्थ्य समर्थन में आपका स्वागत है</h2>
+            <p>आपका मानसिक स्वास्थ्य महत्वपूर्ण है। हम विभिन्न मानसिक स्वास्थ्य मुद्दों के लिए संसाधन और समर्थन प्रदान करते हैं।</p>
+        </div>
+    </div>
+
+    <script>
+        function changeLanguage() {
+            var language = document.getElementById("language-selector").value;
+            document.getElementById("english-content").style.display = language === 'en' ? 'block' : 'none';
+            document.getElementById("marathi-content").style.display = language === 'mr' ? 'block' : 'none';
+            document.getElementById("hindi-content").style.display = language === 'hi' ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>
