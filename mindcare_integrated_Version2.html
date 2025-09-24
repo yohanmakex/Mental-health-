@@ -4,7 +4,7 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>" type="image/svg+xml">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MindCare - Student Mental Health Support</title>
+    <title>MindCare - AI Voice Assistant for Student Mental Health</title>
     <style>
         * {
             margin: 0;
@@ -544,6 +544,207 @@
             color: #a855f7;
         }
 
+        /* Voice Assistant Styles */
+        .voice-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: 10px;
+            flex-wrap: wrap;
+        }
+
+        .voice-btn {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 18px;
+        }
+
+        .voice-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .voice-btn.listening {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            animation: pulse 2s infinite;
+        }
+
+        .voice-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .stop-voice-btn {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            display: none;
+        }
+
+        .voice-to-text-btn {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .voice-to-text-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .voice-indicator {
+            display: none;
+            align-items: center;
+            gap: 5px;
+            color: #ef4444;
+            font-size: 12px;
+        }
+
+        .playback-indicator {
+            display: none;
+            align-items: center;
+            gap: 5px;
+            color: #10b981;
+            font-size: 12px;
+        }
+
+        .processing-indicator {
+            display: none;
+            color: #8b5cf6;
+            font-size: 12px;
+            font-style: italic;
+            margin-left: 10px;
+        }
+
+        .voice-error {
+            display: none;
+            background: rgba(239, 68, 68, 0.1);
+            color: #fca5a5;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 12px;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .voice-mode-selector {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .mode-btn {
+            background: rgba(139, 92, 246, 0.2);
+            color: #c084fc;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            padding: 6px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: all 0.3s;
+        }
+
+        .mode-btn.active {
+            background: rgba(139, 92, 246, 0.6);
+            color: white;
+        }
+
+        .mode-btn:hover {
+            background: rgba(139, 92, 246, 0.4);
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+            }
+        }
+
+        @keyframes recording-pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .recording-dot {
+            width: 8px;
+            height: 8px;
+            background: #ef4444;
+            border-radius: 50%;
+            animation: recording-pulse 1.5s infinite;
+        }
+
+        .sound-wave {
+            width: 12px;
+            height: 12px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: recording-pulse 1.2s infinite;
+        }
+
+        /* Enhanced chat input with voice controls */
+        .enhanced-chat-input {
+            display: flex;
+            align-items: center;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 25px;
+            padding: 8px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .enhanced-chat-input input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 12px 16px;
+            color: #f3f4f6;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .enhanced-chat-input input::placeholder {
+            color: #9ca3af;
+        }
+
+        .enhanced-chat-input .send-btn {
+            background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .enhanced-chat-input .send-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+        }
+
         .emergency-banner {
             background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
             color: white;
@@ -676,7 +877,7 @@
         </div>
 
         <div class="main-nav">
-            <button class="nav-btn active" onclick="showSection('chat')"><span data-en="AI Support Chat" data-mr="AI सहाय्य चर्चा">AI Support Chat</span></button>
+            <button class="nav-btn active" onclick="showSection('chat')"><span data-en="AI Voice Support" data-mr="AI आवाज सहाय्य">AI Voice Support</span></button>
             <button class="nav-btn" onclick="showSection('booking')"><span data-en="Book Counseling" data-mr="समुपदेशन बुक करा">Book Counseling</span></button>
             <button class="nav-btn" onclick="showSection('resources')"><span data-en="Resources" data-mr="संसाधने">Resources</span></button>
             <button class="nav-btn" onclick="showSection('peer-support')"><span data-en="Peer Support" data-mr="समवयस्क सहाय्य">Peer Support</span></button>
@@ -684,8 +885,8 @@
 
         <!-- AI Chat Section -->
         <div id="chat" class="content-area active">
-            <h2><span data-en="AI-Guided First-Aid Support" data-mr="AI-मार्गदर्शित प्राथमिक मदत सहाय्य">AI-Guided First-Aid Support</span></h2>
-            <p style="margin-bottom: 20px; color: #9ca3af;"><span data-en="Share what's on your mind. I'm here to listen and provide helpful coping strategies. Remember, I'm not a replacement for professional help." data-mr="तुमच्या मनात काय आहे ते सांगा. मी ऐकण्यासाठी आणि उपयुक्त सामना रणनीती प्रदान करण्यासाठी येथे आहे. लक्षात ठेवा, मी व्यावसायिक मदतीचा पर्याय नाही.">Share what's on your mind. I'm here to listen and provide helpful coping strategies. Remember, I'm not a replacement for professional help.</span></p>
+            <h2><span data-en="AI Voice Assistant - Mental Health Support" data-mr="AI आवाज सहायक - मानसिक आरोग्य सहाय्य">AI Voice Assistant - Mental Health Support</span></h2>
+            <p style="margin-bottom: 20px; color: #9ca3af;"><span data-en="Share what's on your mind using text or voice. I'm here to listen and provide helpful coping strategies with natural, human-like responses. Remember, I'm not a replacement for professional help." data-mr="आपल्या मनातील गोष्टी मजकूर किंवा आवाजाद्वारे सांगा. मी येथे ऐकण्यासाठी आणि नैसर्गिक, मानवी प्रतिसादांसह उपयुक्त सामना करण्याच्या धोरणे देण्यासाठी आहे. लक्षात ठेवा, मी व्यावसायिक मदतीचा पर्याय नाही.">Share what's on your mind using text or voice. I'm here to listen and provide helpful coping strategies with natural, human-like responses. Remember, I'm not a replacement for professional help.</span></p>
             
             <div class="chat-container">
                 <div class="chat-messages" id="chatMessages">
@@ -695,9 +896,59 @@
                         </div>
                     </div>
                 </div>
-                <div class="chat-input">
-                    <input type="text" id="chatInput" data-placeholder-en="Type your message here..." data-placeholder-mr="तुमचा संदेश येथे टाइप करा..." placeholder="Type your message here..." onkeypress="handleEnter(event)">
-                    <button onclick="sendMessage()"><span data-en="Send" data-mr="पाठवा">Send</span></button>
+                <div class="chat-input-container">
+                    <!-- Voice Mode Selector -->
+                    <div class="voice-mode-selector">
+                        <button class="mode-btn active" data-mode="text" onclick="setVoiceMode('text')">
+                            <span data-en="Text Only" data-mr="केवळ मजकूर">Text Only</span>
+                        </button>
+                        <button class="mode-btn" data-mode="voice-to-text" onclick="setVoiceMode('voice-to-text')">
+                            <span data-en="Voice to Text" data-mr="आवाज ते मजकूर">Voice to Text</span>
+                        </button>
+                        <button class="mode-btn" data-mode="voice-to-voice" onclick="setVoiceMode('voice-to-voice')">
+                            <span data-en="Voice to Voice" data-mr="आवाज ते आवाज">Voice to Voice</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Enhanced Chat Input -->
+                    <div class="enhanced-chat-input">
+                        <input type="text" id="chatInput" data-placeholder-en="Type your message here..." data-placeholder-mr="तुमचा संदेश येथे टाइप करा..." placeholder="Type your message here..." onkeypress="handleEnter(event)">
+                        
+                        <!-- Voice Controls -->
+                        <div class="voice-controls">
+                            <button class="voice-btn" id="voiceBtn" title="Start Voice Recording" style="display: none;">
+                                🎤
+                            </button>
+                            <button class="stop-voice-btn" id="stopVoiceBtn" onclick="stopVoiceRecording()">
+                                <span data-en="Stop" data-mr="थांबा">Stop</span>
+                            </button>
+                            <button class="voice-to-text-btn" id="voiceToTextBtn" onclick="startVoiceToText()" style="display: none;">
+                                <span data-en="🎤→📝" data-mr="🎤→📝">🎤→📝</span>
+                            </button>
+                        </div>
+                        
+                        <button class="send-btn" onclick="sendMessage()">
+                            <span data-en="Send" data-mr="पाठवा">Send</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Voice Indicators -->
+                    <div style="display: flex; align-items: center; margin-top: 10px; gap: 15px;">
+                        <div class="voice-indicator" id="voiceIndicator">
+                            <div class="recording-dot"></div>
+                            <span data-en="Listening..." data-mr="ऐकत आहे...">Listening...</span>
+                        </div>
+                        <div class="playback-indicator" id="playbackIndicator">
+                            <div class="sound-wave"></div>
+                            <span data-en="Playing response..." data-mr="उत्तर वाजवत आहे...">Playing response...</span>
+                        </div>
+                        <div class="processing-indicator" id="processingIndicator">
+                            Processing...
+                        </div>
+                    </div>
+                    
+                    <!-- Voice Error Display -->
+                    <div class="voice-error" id="voiceError"></div>
                 </div>
             </div>
         </div>
@@ -1099,6 +1350,11 @@
             
             // Save language preference
             localStorage.setItem('mindcare-language', lang);
+            
+            // Update voice assistant language
+            if (voiceAssistant) {
+                voiceAssistant.setLanguage(lang);
+            }
         }
 
         // Update chat welcome message based on current language
@@ -1165,18 +1421,34 @@
             }
         }
 
-        // Chat functionality
+        // Chat functionality - Enhanced with AI Voice Assistant
+        let voiceAssistant;
+        let currentVoiceMode = 'text';
+
         function sendMessage() {
             const input = document.getElementById('chatInput');
             const message = input.value.trim();
             
             if (!message) return;
             
+            // Use AI assistant for enhanced responses if available
+            if (voiceAssistant && currentVoiceMode !== 'text') {
+                voiceAssistant.sendTextMessage(message);
+                input.value = '';
+                return;
+            }
+            
+            // Fallback to original functionality
             addMessage(message, 'user');
             input.value = '';
             
-            setTimeout(() => {
-                const response = generateResponse(message);
+            setTimeout(async () => {
+                let response;
+                if (voiceAssistant) {
+                    response = await voiceAssistant.generateAIResponse(message);
+                } else {
+                    response = generateResponse(message);
+                }
                 addMessage(response, 'bot');
             }, 1000);
         }
@@ -1231,6 +1503,87 @@
         function handleEnter(event) {
             if (event.key === 'Enter') {
                 sendMessage();
+            }
+        }
+
+        // Voice Assistant Functions
+        function setVoiceMode(mode) {
+            currentVoiceMode = mode;
+            
+            // Update UI
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-mode="${mode}"]`).classList.add('active');
+            
+            // Show/hide appropriate controls
+            const voiceBtn = document.getElementById('voiceBtn');
+            const voiceToTextBtn = document.getElementById('voiceToTextBtn');
+            
+            if (mode === 'text') {
+                voiceBtn.style.display = 'none';
+                voiceToTextBtn.style.display = 'none';
+            } else if (mode === 'voice-to-text') {
+                voiceBtn.style.display = 'none';
+                voiceToTextBtn.style.display = 'inline-block';
+            } else if (mode === 'voice-to-voice') {
+                voiceBtn.style.display = 'inline-block';
+                voiceToTextBtn.style.display = 'none';
+            }
+        }
+
+        function startVoiceToText() {
+            if (voiceAssistant) {
+                voiceAssistant.voiceToTextOnly();
+            } else {
+                showVoiceError('Voice assistant not available');
+            }
+        }
+
+        function stopVoiceRecording() {
+            if (voiceAssistant) {
+                voiceAssistant.stopVoiceRecording();
+            }
+        }
+
+        function showVoiceError(message) {
+            const errorDiv = document.getElementById('voiceError');
+            if (errorDiv) {
+                errorDiv.textContent = message;
+                errorDiv.style.display = 'block';
+                setTimeout(() => {
+                    errorDiv.style.display = 'none';
+                }, 5000);
+            }
+        }
+
+        // Initialize Voice Assistant
+        async function initializeVoiceAssistant() {
+            try {
+                // Load the voice assistant script
+                const script = document.createElement('script');
+                script.src = './ai-voice-assistant.js';
+                script.onload = () => {
+                    try {
+                        voiceAssistant = new AIVoiceAssistant();
+                        voiceAssistant.setLanguage(currentLanguage);
+                        console.log('Voice assistant initialized successfully');
+                        
+                        // Show voice controls
+                        document.querySelector('.voice-mode-selector').style.display = 'flex';
+                    } catch (error) {
+                        console.error('Error creating voice assistant:', error);
+                        showVoiceError('Failed to initialize voice assistant');
+                    }
+                };
+                script.onerror = () => {
+                    console.error('Failed to load voice assistant script');
+                    showVoiceError('Voice assistant unavailable');
+                };
+                document.head.appendChild(script);
+            } catch (error) {
+                console.error('Error initializing voice assistant:', error);
+                showVoiceError('Voice features unavailable');
             }
         }
 
@@ -1341,6 +1694,12 @@
             // Load saved language preference
             const savedLanguage = localStorage.getItem('mindcare-language') || 'en';
             switchLanguage(savedLanguage);
+            
+            // Initialize voice assistant
+            initializeVoiceAssistant();
+            
+            // Set initial voice mode
+            setVoiceMode('text');
         });
     </script>
 </body>
